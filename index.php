@@ -16,6 +16,7 @@ include 'web_site/partials/cuerpo_index.php';
 echo '<!-- DEBUG: Después de cuerpo_index.php -->';
 
 include 'web_site/partials/main_end.php';
+include 'web_site/partials/footer.php';
 echo '<!-- DEBUG: Antes de footer_scripts.php -->';
 include 'web_site/partials/footer_scripts.php';
 echo '<!-- DEBUG: Después de footer_scripts.php -->';
