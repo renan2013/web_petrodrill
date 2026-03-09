@@ -12,8 +12,7 @@ $tables = [
     'posts',
     'categories',
     'menus',
-    'testimonios',
-    'client_data'
+    'testimonios'
 ];
 
 echo "<h2>Iniciando limpieza de base de datos...</h2>";
