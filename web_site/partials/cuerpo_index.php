@@ -45,7 +45,7 @@ try {
                   <article>
 
                     <div class="post-img">
-                      <img src="<?php echo BASE_URL; ?>/public/<?php echo htmlspecialchars($post['main_image']); ?>" alt="" class="img-fluid">
+                      <img src="<?php echo BASE_URL; ?>/public/uploads/images/<?php echo htmlspecialchars($post['main_image']); ?>" alt="" class="img-fluid">
                     </div>
 
                     <p class="post-category">Categoría: <?php echo htmlspecialchars($post['category_name']); ?></p>
