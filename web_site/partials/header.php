@@ -42,10 +42,10 @@
     <div class="container-fluid container-xl position-relative">
 
       <div class="top-row d-flex align-items-center justify-content-between">
-        <a href="index.html" class="logo d-flex align-items-end">
+        <a href="/web_petrodrill/index.php" class="logo d-flex align-items-end">
           <!-- Uncomment the line below if you also wish to use an image logo -->
           <!-- <img src="assets/img/logo.webp" alt=""> -->
-          <h1 class="sitename">Blogy</h1><span>.</span>
+          <h1 class="sitename">Petrodrill</h1><span>.</span>
         </a>
 
         <div class="d-flex align-items-center">
