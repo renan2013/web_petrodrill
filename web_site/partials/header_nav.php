@@ -66,20 +66,18 @@ try {
           <ul>
             <?php foreach ($menuItems as $item):
                 $linkUrl = htmlspecialchars($item['url']);
-                // Adjust 'index.html' to '/index.php' for the new root
+                // Adjust links for the new project structure
                 if ($linkUrl === 'index.html' || $linkUrl === 'index.php' || $linkUrl === '/index.php') {
-                    $linkUrl = '/index.php';
+                    $linkUrl = '/web_petrodrill/index.php';
                 } else {
-                    // Prepend /web_site/ to other internal links
-                    $linkUrl = '/web_site/' . $linkUrl;
+                    // Prepend the project path to other internal links
+                    $linkUrl = '/web_petrodrill/web_site/' . $linkUrl;
                 }
                 if ($item['title'] == 'CONTACTO') {
                     $linkUrl = 'https://wa.me/51989878609';
                 }
-                // Determine active class based on the adjusted URL
-                $isActive = ($linkUrl === '/index.php') ? '' : '';
             ?>
-                <li><a href="<?php echo $linkUrl; ?>" class="<?php echo $isActive; ?>"><?php echo htmlspecialchars($item['title']); ?></a></li>
+                <li><a href="<?php echo $linkUrl; ?>"><?php echo htmlspecialchars($item['title']); ?></a></li>
             <?php endforeach; ?>
           </ul>
         </nav>
