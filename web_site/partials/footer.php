@@ -35,13 +35,15 @@ try {
           <h4>Enlaces Útiles</h4>
           <ul>
             <?php foreach ($menuItems as $item):
-                $linkUrl = htmlspecialchars($item['url']);
-                if ($linkUrl === 'index.html' || $linkUrl === 'index.php' || $linkUrl === '/index.php') {
+                $linkUrl = $item['url'];
+                if (strpos($linkUrl, 'http') === 0) {
+                    $linkUrl = htmlspecialchars($linkUrl);
+                } elseif ($linkUrl === 'index.html' || $linkUrl === 'index.php' || $linkUrl === '/index.php') {
                     $linkUrl = '/web_petrodrill/index.php';
                 } else {
-                    $linkUrl = '/web_petrodrill/web_site/' . $linkUrl;
+                    $linkUrl = '/web_petrodrill/web_site/' . htmlspecialchars($linkUrl);
                 }
-                if ($item['title'] == 'CONTACTO') {
+                if ($item['title'] == 'CONTACTO' && strpos($linkUrl, 'http') !== 0) {
                     $linkUrl = 'https://wa.me/51989878609';
                 }
             ?>

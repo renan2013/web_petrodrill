@@ -65,15 +65,22 @@ try {
         <nav id="navmenu" class="navmenu">
           <ul>
             <?php foreach ($menuItems as $item):
-                $linkUrl = htmlspecialchars($item['url']);
-                // Adjust links for the new project structure
-                if ($linkUrl === 'index.html' || $linkUrl === 'index.php' || $linkUrl === '/index.php') {
+                $linkUrl = $item['url'];
+                
+                // Si es una URL externa (WhatsApp, etc.), no la modificamos
+                if (strpos($linkUrl, 'http') === 0) {
+                    $linkUrl = htmlspecialchars($linkUrl);
+                } 
+                // Si es el inicio
+                elseif ($linkUrl === 'index.html' || $linkUrl === 'index.php' || $linkUrl === '/index.php') {
                     $linkUrl = '/web_petrodrill/index.php';
-                } else {
-                    // Prepend the project path to other internal links
-                    $linkUrl = '/web_petrodrill/web_site/' . $linkUrl;
+                } 
+                // Si es un enlace interno del sitio
+                else {
+                    $linkUrl = '/web_petrodrill/web_site/' . htmlspecialchars($linkUrl);
                 }
-                if ($item['title'] == 'CONTACTO') {
+
+                if ($item['title'] == 'CONTACTO' && strpos($linkUrl, 'http') !== 0) {
                     $linkUrl = 'https://wa.me/51989878609';
                 }
             ?>
