@@ -1,9 +1,9 @@
 <?php
 // -- DATABASE CONNECTION --
 define('DB_HOST', 'localhost');
-define('DB_USER', 'u822406629_classboxnuevo');
-define('DB_PASS', 'Classbox2026!');
-define('DB_NAME', 'u822406629_classboxnuevo');
+define('DB_USER', 'u400283574_petro');
+define('DB_PASS', 'Petro2026!');
+define('DB_NAME', 'u400283574_petrodrill2026');
 define('DB_CHARSET', 'utf8mb4');
 
 // -- APPLICATION PATHS --
