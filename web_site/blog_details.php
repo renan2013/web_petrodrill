@@ -106,10 +106,15 @@ try {
                           <?php elseif ($att['type'] === 'youtube'): ?>
                               <li class="mb-3">
                                   <?php
-                                  preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|v\/|e(?:mbed)?\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $att['value'], $match);
+                                  // Expresión regular mejorada para YouTube (incluye shorts y youtu.be)
+                                  $pattern = '/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?|shorts)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i';
+                                  preg_match($pattern, $att['value'], $match);
                                   $youtube_id = $match[1] ?? '';
                                   if ($youtube_id) {
                                       echo '<div class="youtube-video"><iframe src="https://www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+                                  } else {
+                                      // Si no es un ID de YouTube, intentar mostrar como enlace directo o iframe genérico
+                                      echo '<a href="' . htmlspecialchars($att['value']) . '" target="_blank" class="btn btn-outline-primary btn-sm w-100"><i class="bi bi-play-circle"></i> Ver Video</a>';
                                   }
                                   ?>
                               </li>
