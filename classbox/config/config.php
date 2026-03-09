@@ -7,7 +7,7 @@ define('DB_NAME', 'u400283574_petrodrill2026');
 define('DB_CHARSET', 'utf8mb4');
 
 // -- APPLICATION PATHS --
-define('BASE_URL', 'https://ceficr.com/web_cefi_2026/classbox'); 
+define('BASE_URL', 'https://petrodrillperu.com/web_petrodrill/classbox'); 
 define('ROOT_PATH', __DIR__);
 
 // -- OTHER SETTINGS --
