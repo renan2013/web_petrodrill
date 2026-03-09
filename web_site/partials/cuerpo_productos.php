@@ -45,13 +45,13 @@ try {
                   <article>
 
                     <div class="post-img">
-                      <img src="<?php echo BASE_URL; ?>/<?php echo htmlspecialchars($post['main_image']); ?>" alt="" class="img-fluid">
+                      <img src="<?php echo BASE_URL; ?>/public/uploads/images/<?php echo htmlspecialchars($post['main_image']); ?>" alt="" class="img-fluid">
                     </div>
 
                     <p class="post-category">Categoría: <?php echo htmlspecialchars($post['category_name']); ?></p>
 
                     <h2 class="title">
-                      <a href="/web_site/blog_details.php?id=<?php echo htmlspecialchars($post['id_post']); ?>"><?php echo htmlspecialchars($post['title']); ?></a>
+                      <a href="/web_petrodrill/web_site/blog_details.php?id=<?php echo htmlspecialchars($post['id_post']); ?>"><?php echo htmlspecialchars($post['title']); ?></a>
                     </h2>
                     <p class="post-synopsis"><?php echo htmlspecialchars($post['synopsis']); ?></p>
 
