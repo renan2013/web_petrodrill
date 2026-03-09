@@ -51,7 +51,7 @@ try {
                     <p class="post-category">Categoría: <?php echo htmlspecialchars($post['category_name']); ?></p>
 
                     <h2 class="title">
-                      <a href="/web_site/blog_details.php?id=<?php echo htmlspecialchars($post['id_post']); ?>"><?php echo htmlspecialchars($post['title']); ?></a>
+                      <a href="web_site/blog_details.php?id=<?php echo htmlspecialchars($post['id_post']); ?>"><?php echo htmlspecialchars($post['title']); ?></a>
                     </h2>
                     <p class="post-synopsis"><?php echo htmlspecialchars($post['synopsis']); ?></p>
 

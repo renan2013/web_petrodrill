@@ -1,13 +1,15 @@
 
 <?php
+// Incluir conexión a la base de datos y configuración
+require_once __DIR__ . '/../classbox/config/database.php';
+
 include 'partials/head_section.php';
 include 'partials/header_nav.php';
-require_once __DIR__ . '/../classbox/config/database.php';
 
 $post_id = $_GET['id'] ?? null;
 
 if (!$post_id) {
-    header('Location: /index.php');
+    header('Location: ../index.php');
     exit;
 }
 
@@ -23,18 +25,22 @@ try {
 
     if (!$post) {
         http_response_code(404);
-        echo "<h1>404 - Post Not Found</h1><p>Sorry, the post you are looking for does not exist.</p>";
+        echo "<div class='container mt-5'><h1>404 - Post Not Found</h1><p>Sorry, the post you are looking for does not exist.</p></div>";
+        include 'partials/footer.php';
+        include 'partials/footer_scripts.php';
         exit;
     }
 
-    // Fetch attachments for this post (even if not used immediately, good to have)
+    // Fetch attachments for this post
     $att_stmt = $pdo->prepare("SELECT type, value FROM attachments WHERE id_post = ?");
     $att_stmt->execute([$post_id]);
     $attachments = $att_stmt->fetchAll();
 
 } catch (PDOException $e) {
     error_log("Error al cargar la publicación: " . $e->getMessage());
-    echo "<h1>Error</h1><p>Hubo un problema al cargar la publicación.</p>";
+    echo "<div class='container mt-5'><h1>Error</h1><p>Hubo un problema al cargar la publicación.</p></div>";
+    include 'partials/footer.php';
+    include 'partials/footer_scripts.php';
     exit;
 }
 ?>
@@ -43,11 +49,8 @@ try {
 
     <!-- Page Title -->
     <div class="page-title">
-      
-
       <div class="title-wrapper">
         <h1><?php echo htmlspecialchars($post['title']); ?></h1>
-       
       </div>
     </div><!-- End Page Title -->
 
@@ -63,82 +66,61 @@ try {
               <article class="article">
 
                 <div class="hero-img" data-aos="zoom-in">
-                  <img src="../classbox/<?php echo htmlspecialchars($post['main_image']); ?>" alt="<?php echo htmlspecialchars($post['title']); ?>" class="img-fluid" loading="lazy">
-                  <?php echo "<!-- DEBUG IMAGE URL: ../classbox/" . htmlspecialchars($post['main_image']) . " -->"; ?>
-                  <?php echo "<!-- DEBUG RAW MAIN_IMAGE: " . htmlspecialchars($post['main_image']) . " -->"; ?>
-                  
+                  <?php if (!empty($post['main_image'])): ?>
+                    <img src="<?php echo BASE_URL; ?>/public/uploads/images/<?php echo htmlspecialchars($post['main_image']); ?>" alt="<?php echo htmlspecialchars($post['title']); ?>" class="img-fluid" loading="lazy">
+                  <?php endif; ?>
                 </div>
 
                 <div class="article-content" data-aos="fade-up" data-aos-delay="100">
-                  
-
                   <div class="content">
-                    <p >
-                      <?php
+                    <?php
                     $post_content = $post['content'];
-                    $post_content = str_replace('../../public/uploads/images/', '/sistema_classbox/classbox/public/uploads/images/', $post_content);
+                    // Ajustar rutas de imágenes internas del editor
+                    $post_content = str_replace('../../public/uploads/images/', BASE_URL . '/public/uploads/images/', $post_content);
                     echo $post_content;
                     ?>
-                    </p>
-
-                  
                   </div>
-
-                 
                 </div>
 
               </article>
 
             </div>
           </section><!-- /Blog Details Section -->
-
-          
-
-          
-
-          
-
         </div>
 
-          <div class="col-12 col-lg-4 sidebar" >
-          <p><?php echo ucfirst(htmlspecialchars($post['synopsis'])); ?></p>
+        <div class="col-12 col-lg-4 sidebar" >
+          <div class="widget-item">
+            <h3 class="widget-title">Resumen</h3>
+            <p><?php echo ucfirst(htmlspecialchars($post['synopsis'])); ?></p>
+          </div>
           
-          
-<!-- Categories Widget -->
-            <div class="categories-widget widget-item">
-
-              <h3 class="widget-title">Adjuntos</h3>
-              <div class="post-item">
-                <?php if (!empty($attachments)): ?>
-                    <ul>
-                        <?php foreach ($attachments as $att): ?>
-                            <?php if ($att['type'] === 'pdf'): ?>
-                              <hr/>
-                                <li><a href="../classbox/<?php echo htmlspecialchars($att['value']); ?>" target="_blank">Descargar PDF</a></li>
-                            <?php elseif ($att['type'] === 'youtube'): ?>
-                                <li>
-                                    <?php
-                                    preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|v\/|e(?:mbed)?\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $att['value'], $match);
-                                    $youtube_id = $match[1] ?? '';
-                                    if ($youtube_id) {
-                                        echo '<div class="youtube-video"><iframe src="https://www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
-                                    }
-                                    ?>
-                                </li>
-                            <?php endif; ?>
-                        <?php endforeach; ?>
-                    </ul>
-                <?php else: ?>
-                    <p>No hay adjuntos para esta publicación.</p>
-                <?php endif; ?>
-              </div><!-- End attachments item-->
-
-            </div><!--/Categories Widget -->
-
-        
-
-        
-
+          <!-- Attachments Widget -->
+          <div class="categories-widget widget-item">
+            <h3 class="widget-title">Adjuntos</h3>
+            <div class="post-item">
+              <?php if (!empty($attachments)): ?>
+                  <ul class="list-unstyled">
+                      <?php foreach ($attachments as $att): ?>
+                          <?php if ($att['type'] === 'pdf'): ?>
+                              <li class="mb-2"><a href="<?php echo BASE_URL; ?>/public/uploads/attachments/<?php echo htmlspecialchars($att['value']); ?>" target="_blank" class="btn btn-outline-danger btn-sm w-100"><i class="bi bi-file-pdf"></i> Descargar PDF</a></li>
+                          <?php elseif ($att['type'] === 'youtube'): ?>
+                              <li class="mb-3">
+                                  <?php
+                                  preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|v\/|e(?:mbed)?\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/i', $att['value'], $match);
+                                  $youtube_id = $match[1] ?? '';
+                                  if ($youtube_id) {
+                                      echo '<div class="youtube-video"><iframe src="https://www.youtube.com/embed/' . $youtube_id . '" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>';
+                                  }
+                                  ?>
+                              </li>
+                          <?php endif; ?>
+                      <?php endforeach; ?>
+                  </ul>
+              <?php else: ?>
+                  <p>No hay adjuntos para esta publicación.</p>
+              <?php endif; ?>
+            </div>
+          </div><!--/Attachments Widget -->
         </div>
 
       </div>
@@ -149,13 +131,13 @@ try {
 <style>
 .youtube-video {
     position: relative;
-    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    padding-bottom: 56.25%; 
     height: 0;
     overflow: hidden;
     max-width: 100%;
     background: #000;
+    margin-bottom: 15px;
 }
-
 .youtube-video iframe {
     position: absolute;
     top: 0;
@@ -163,6 +145,14 @@ try {
     width: 100%;
     height: 100%;
 }
+.hero-img img {
+    width: 100%;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
 </style>
 
-<?php include 'partials/footer_scripts.php'; ?>
+<?php 
+include 'partials/footer.php';
+include 'partials/footer_scripts.php'; 
+?>
