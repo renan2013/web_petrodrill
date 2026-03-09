@@ -23,7 +23,7 @@ try {
     $pdo->exec("SET FOREIGN_KEY_CHECKS = 0");
 
     foreach ($tables as $table) {
-        $pdo->exec("TRUNCATE TABLE `$table` text");
+        $pdo->exec("TRUNCATE TABLE `$table` ");
         echo "Vaciada tabla: <strong>$table</strong><br>";
     }
 
