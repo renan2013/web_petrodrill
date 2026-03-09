@@ -15,7 +15,7 @@ $slider_images = $slider_stmt->fetchAll();
     <?php foreach ($slider_images as $index => $slide): ?>
     <div class="mySlides fade">
         <a href="/web_site/blog_details.php?id=<?php echo $slide['id_post']; ?>">
-            <img src="<?php echo BASE_URL; ?>/<?php echo htmlspecialchars($slide['image_path']); ?>" alt="<?php echo htmlspecialchars($slide['title']); ?>">
+            <img src="<?php echo BASE_URL; ?>/public/<?php echo htmlspecialchars($slide['image_path']); ?>" alt="<?php echo htmlspecialchars($slide['title']); ?>">
         </a>
     </div>
     <?php endforeach; ?>
