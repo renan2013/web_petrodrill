@@ -1,7 +1,3 @@
-# Configuración de base de datos
-classbox/config/database.php
-web_site/config/database.php
-
 # Archivos temporales y de sistema
 .DS_Store
 Thumbs.db
