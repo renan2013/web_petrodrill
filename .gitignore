@@ -1,0 +1,14 @@
+# Configuración de base de datos
+classbox/config/database.php
+web_site/config/database.php
+
+# Archivos temporales y de sistema
+.DS_Store
+Thumbs.db
+*.log
+.gemini/
+.idea/
+.vscode/
+
+# Carpetas de subida (opcional, si no quieres subirlas al repo)
+# classbox/public/uploads/
