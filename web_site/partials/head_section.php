@@ -9,8 +9,8 @@
   <meta name="keywords" content="repuestos de perforacion, metal mecanica, importacion y exportacion de insumos industriales">
 
   <!-- Favicons -->
-  <link href="/web_petrodrill/web_site/assets/img/favicon.png" rel="icon">
-  <link href="/web_petrodrill/web_site/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="/web_petrodrill/web_site/assets/img/favicon.png?v=2" rel="icon">
+  <link href="/web_petrodrill/web_site/assets/img/apple-touch-icon.png?v=2" rel="apple-touch-icon">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
